@@ -1,0 +1,120 @@
+/*@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900);*/
+
+.remark-notes p {
+  font-size: 1.5em;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.remark-slide-content {
+  background-color: white;
+  color: black;
+  padding: 1em 1em 1em 1em;
+}
+
+.remark-slide-content h1 {
+  font-size: 4em;
+}
+
+.title-bg {
+  background-color: white;
+  color: black;
+  /*font-family: 'Comic Neue';*/
+}
+.title-bg a:visited, .dark-bg a:active, .dark-bg a {
+  color: black;
+}
+
+code {
+  background-color: #4e4e4e;
+  color: #e6e6e6;
+  padding: 15px;
+}
+
+.huge h1 {
+  font-size: 8em;
+}
+.huge code {
+  font-size: 4em;
+}
+.large code {
+  font-size: 3em;
+}
+.big code {
+  font-size: 2em;
+}
+.increased code {
+  font-size: 1.25em;
+}
+.large h2 code {
+  font-size: 1.0em;
+}
+
+.remark-slide-content ul {
+  list-style-type: none;
+}
+.remark-slide-content ul li {
+  font-size: 2em;
+}
+
+.remark-slide-content ul li ul li {
+  font-size: 1em;
+}
+
+li > code {
+  background-color: none;
+  padding: 0;
+}
+
+a:visited, a:active, a {
+  color: #004488;
+  text-decoration: none;
+}
+
+.less-space h3 {
+  margin: 0;
+}
+
+img {
+  width: 100%;
+}
+.imgnormal img {
+  width: auto;
+}
+.imglogo img {
+  width: 150px;
+}
+
+.gif {
+  background-size: 100%;
+}
+
+.title img {
+  width: 30%;
+}
+
+.footnote {
+  font-size: 1.0em;
+  padding: 5px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: white;
+}
+
+blockquote {
+    text-align: left;
+    font-size: 2.8em;
+}
+
+.highl span.highl {
+    color: red;
+}
+.author {
+  font-size: 0.5em;
+  margin-top: -50px;
+}

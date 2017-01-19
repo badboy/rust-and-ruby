@@ -1,0 +1,464 @@
+<!DOCTYPE html
+<html>
+  <head>
+    <title>Rust and Ruby - make it fast</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="public/custom.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, less-space, title-bg, title
+
+![](media/ruby-rust.svg)
+
+# Make it fast!
+
+### 2017-01-18 - Rust Cologne.rb
+### Jan-Erik Rediger — [@badboy_](https://twitter.com/badboy_)
+
+???
+
+---
+
+## It's me
+
+## Software Developer &amp; Student
+
+<h2 style="margin:0">OSS Maintainer</h2>
+
+<div style="float: left; width: 50%">
+  <h3 style="margin:0">Ruby</h3>
+
+  <ul>
+    <li>redis-rb</li>
+    <li>hiredis-rb</li>
+    <li><a href="https://rubygems.org/profiles/badboy_">...</a></li>
+  </ul>
+</div>
+
+<div style="float: left: width: 50%">
+<h3 style="margin:0">Rust</h3>
+<ul>
+  <li>redis</li>
+  <li>crc64</li>
+  <li>iso8601</li>
+  <li><a href="https://crates.io/users/badboy">...</a></li>
+</ul>
+
+---
+class: center, middle, imglogo
+![](media/ruby-logo.png)
+# Ruby Dev?
+
+---
+class: center, middle, imglogo
+![](media/rust-logo.png)
+# Rust Dev?
+
+---
+## Native extensions
+![](media/c-ext-1.svg)
+.footnote[\* adapted from "[Ruby’s C Extension Problem and How We're Solving It](http://rubyconf.org/program#prop_31)"]
+---
+## Native extensions
+![](media/c-ext-2.svg)
+.footnote[\* adapted from "[Ruby’s C Extension Problem and How We're Solving It](http://rubyconf.org/program#prop_31)"]
+---
+## Native extensions
+![](media/c-ext-3.svg)
+.footnote[\* adapted from "[Ruby’s C Extension Problem and How We're Solving It](http://rubyconf.org/program#prop_31)"]
+---
+## Native extensions
+![](media/c-ext-4.svg)
+.footnote[\* adapted from "[Ruby’s C Extension Problem and How We're Solving It](http://rubyconf.org/program#prop_31)"]
+
+---
+class: middle, center
+
+## Popular extensions
+
+* [hiredis](https://rubygems.org/gems/hiredis)
+* [openssl](https://rubygems.org/gems/openssl)
+* [pg](https://rubygems.org/gems/pg)
+* [mysql2](https://rubygems.org/gems/mysql2)
+* [fast_blank](https://rubygems.org/gems/fast_blank)
+
+---
+class: 
+
+## C API
+
+```ruby
+VALUE klass_connection;
+void InitConnection(VALUE mod) {
+    con = rb_define_class_under(mod, "Connection", rb_cObject);
+    rb_global_variable(&con);
+    rb_define_alloc_func(con, connection_parent_context_alloc);
+    rb_define_method(con, "connect", connection_connect, -1);
+    rb_define_method(con, "connect_unix", connection_connect_unix, -1);
+    rb_define_method(con, "connected?", connection_is_connected, 0);
+    rb_define_method(con, "disconnect", connection_disconnect, 0);
+    rb_define_method(con, "timeout=", connection_set_timeout, 1);
+    rb_define_method(con, "fileno", connection_fileno, 0);
+    rb_define_method(con, "write", connection_write, 1);
+    rb_define_method(con, "flush", connection_flush, 0);
+    rb_define_method(con, "read", connection_read, 0);
+}
+```
+
+#### Mehr Info: [rubygems.org](http://guides.rubygems.org/gems-with-extensions/), [extension.rdoc](https://github.com/ruby/ruby/blob/trunk/doc/extension.rdoc)
+
+.footnote[\*from [hiredis-rb](https://github.com/redis/hiredis-rb/blob/master/ext/hiredis_ext/connection.c#L500-L514)]
+
+---
+class: center, middle, imglogo
+![](media/rust-logo.png)
+
+---
+class:
+
+## Rust
+
+```rust
+fn main() {
+    let program = "+ + * - /";
+    let mut accumulator = 0;
+
+    for token in program.chars() {
+        match token {
+            '+' => accumulator += 1,
+            '-' => accumulator -= 1,
+            '*' => accumulator *= 2,
+            '/' => accumulator /= 2,
+            _ => { /* ignore everything else */ }
+        }
+    }
+
+    println!("The program \"{}\" calculates the value {}",
+              program, accumulator);
+}
+```
+
+.footnote[["Rust for Rubyists"](https://fnordig.de/talks/2014/froscon/rust-for-rubyists/#/), FrOSCon, RedFrogConf, 24.08.2014]
+
+---
+class: center, middle
+
+> Rust is a systems programming language that <span class="highl">runs blazingly fast</span>, <span class="highl">prevents segfaults</span>, and guarantees <span class="highl">thread safety</span>.
+
+---
+class: center, middle, highl
+
+> Rust is a systems programming language that <span class="highl">runs blazingly fast</span>, <span class="highl">prevents segfaults</span>, and guarantees <span class="highl">thread safety</span>.
+
+---
+class: center, middle
+
+> Rust ist ja dazu da, Tools, die es schon gibt, nochmal zu schreiben.
+> <p class="author">Lucas (<a href="http://twitter.com/moonbeamlabs">@moonbeamlabs</a>)</p>
+
+.footnote[["Nerdkunde 43 - Die menschliche Möhre"](http://www.nerdkunde.de/45-die-menschliche-moehre)]
+
+---
+class: 
+
+## Rust's Geschichte
+
+* in der Entwicklung seit 2010
+
+* Version 1.0 im Mai 2015
+
+* Derzeit: 1.14\*
+
+* gesponsort von Mozilla 
+
+.footnote[\* v1.15 am 3. Februar]
+
+---
+class: gif
+background-image: url(media/rust-friends.gif)
+
+---
+class: center, middle, title
+
+# Rust &amp; Ruby
+
+![](media/ruby-rust.svg)
+
+---
+class: gif
+background-image: url(media/why.gif)
+
+---
+class: 
+
+## Vorteile von Rust
+
+* "Zero-Cost abstractions"
+
+* FFI für C-Interoperabilität
+
+* Low-Level wenn nötig
+
+* Mehr Sicherheiten
+
+* Besseres Tooling
+
+---
+class: large
+
+## `blank`
+
+```ruby
+def blank?
+  BLANK_RE === self
+end
+```
+
+---
+class: large
+
+## `blank` - 3x faster
+
+```ruby
+def blank?
+  self.empty? || 
+    BLANK_RE === self
+end
+```
+
+---
+
+## `fast_blank` - 10x faster
+
+```c
+static VALUE rb_str_blank_as(VALUE str)
+{
+  ...
+  while (s < e) { 
+    int n;
+    unsigned int cc = rb_enc_codepoint_len(s, e, &n, enc);
+
+    switch (cc) {
+      case 9:
+      case 0xa:
+      case 0xb:
+      case 0xc:
+      case 0xd:
+      case 0x20:
+      case 0x85:
+      case 0xa0:
+      case 0x1680:
+      case 0x2000:
+      case 0x2001:
+      case 0x2002:
+      case 0x2003:
+      case 0x2004:
+      ...
+```
+
+???
+
+>
+
+---
+class: increased
+
+## `turbo_blank` - 10x faster
+
+```rust
+def is_blank(self) -> bool {
+    self.to_string().chars().all(|c| c.is_whitespace())
+}
+```
+
+---
+class: 
+
+## Tooling: Cargo
+
+* Rubygems &amp; Bundler in einem
+
+* &amp;gt; 7600 Crates verfügbar
+
+* Einfache Integration in Rust-Code
+
+---
+class:
+
+## Tooling: Helix
+
+```rust
+declare_types! {
+    class Console {
+        def log(string: &str) {
+            println!("LOG: {}", string);
+        }
+    }
+}
+```
+
+```ruby
+>> Console.new.log("Hallo, Köln!")
+LOG: Hallo, Köln!
+```
+
+.footnote[[Helix](https://github.com/rustbridge/helix)]
+
+---
+class:
+
+## Tooling: Helix - `turbo_blank`
+
+```rust
+#[macro_use]
+extern crate helix;
+
+declare_types! {
+    reopen class RubyString {
+        def is_blank(self) -> bool {
+          // self.chars().all(|c| c.is_whitespace())
+          self.to_string().chars().all(|c| c.is_whitespace())
+        }
+    }
+}
+
+use helix::{UncheckedValue, ToRust};
+
+impl ToString for RubyString {
+    fn to_string(&self) -> String {
+        let checked = self.0.to_checked().unwrap();
+        checked.to_rust()
+    }
+}
+```
+
+---
+class:
+
+## Tooling: Helix - Status
+
+* Weit entfernt von einfach nutzbar
+
+* Beispiel-Code OSX-only
+
+* Wenig Dokumentation
+
+* Yehuda Katz: es wird dran gearbeitet
+
+---
+class:
+
+## Tooling: Ruru
+
+```rust
+class!(Console);
+
+methods!(
+    Console,
+    itself,
+
+    fn console_log(string: RString) -> NilClass {
+        println!("LOG: {}", string.unwrap().to_string());
+        NilClass::new()
+    }
+)
+
+#[no_mangle]
+pub extern fn init_rusty_redic() {
+    Class::new("Console", None).define(|itself| {
+        itself.def("log", console_log);
+    });
+}
+```
+
+.footnote[[Ruru](https://github.com/d-unseductable/ruru)]
+
+---
+class:
+
+## Tooling: Ruru - Status
+
+* Benutzbar
+
+* Dokumentation vorhanden
+
+* braucht mehr High-Level-Beispiele
+
+* würde von Ideen aus Helix profitieren
+
+---
+class:
+
+## Tooling: Thermite - build &amp; distribute
+
+* Problem: 
+    * User haben keinen Rust Compiler
+
+--
+
+* Lösung: 
+    * Verteile vorkompilierte Pakete
+
+* Vollautomatisch auf Travis CI
+
+.footnote[[Thermite](https://github.com/malept/thermite)]
+
+---
+class:
+
+## Tooling Thermite - Status
+
+* Es funktioniert!
+
+* Setup-Dokumentation fehlt
+
+---
+class: middle, center
+
+# [rusty_redic](https://github.com/badboy/rusty_redic)
+
+### 
+
+---
+class: 
+
+## Rust &amp; Ruby in production
+
+* Performance Tracking in Web Apps
+    * [AppSignal](https://appsignal.com/)
+    * [Skylight](https://www.skylight.io/)
+
+--
+
+* Soon: Rails?
+    * [Pascal](https://github.com/killercup) weiß mehr!
+
+---
+class:
+
+## Mehr Rust
+
+* [rust-lang.org](https://www.rust-lang.org/)
+
+* [community.rs/resources](https://community.rs/resources)
+
+* [rust.cologne](http://rust.cologne/)
+
+---
+class: center, middle, title
+
+![](media/ruby-rust.svg)
+
+# Thank you!
+  </textarea>
+    <script src="public/remark.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+      });
+    </script>
+    <!--<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>-->
+  </body>
+</html>
